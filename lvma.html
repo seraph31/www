@@ -1,0 +1,36 @@
+<!doctype html><html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"><!--禁止缩放 -->
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>1</title><style>html{position:fixed;top:0;left:0;height:100%;width:100%;background-color:#212121;}body{position:fixed;top:0;left:0;height:100%;width:100%;background-color:#212121;margin:0;padding:0;}h1{font-weight:normal;font-size:60px;text-align:center;margin:auto;}</style></head><body>
+<img src="https://pic.imgdb.cn/item/62d3c376f54cd3f937534c21.png" width="100%" height="100%">
+<style>#time_clock{position:fixed;top:96px;left:66px;font-weight:666;font-size:26px;font-family:"PingFang SC",sans-serif;}</style>
+<div id="time_clock"></div><script>
+function tick() {
+	let today = new Date();//这里取了当前时间，可以是其他方式获取到的Date对象
+	let option = {year:'numeric', month:'2-digit',day:'2-digit', hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}; //注意这里hour12 要给布尔值，而不是字符串'false'
+	let data_str = today.toLocaleString('zh-CN',option);
+//	console.log(data_str);//2021/09/09 08:52:36
+	let result = data_str.substring(5);//09/09 08:52:36
+	result=result.replace(/\//g,'-');	//将分隔符'/'替换成'-'
+	time_clock.innerHTML= result;
+}
+setInterval(tick, 50);	//一秒刷新1000/50=20次
+</script>
+</body></html>
+<!-- 添加阻止默认行为的脚本 -->
+<script>
+window.onload = function() {
+	var lastTouchEnd = 0;
+	document.addEventListener('touchstart', function(event) {
+		if (event.touches.length > 1) { event.preventDefault(); }
+	});
+	document.addEventListener('touchend', function(event) {
+		var now = (new Date()).getTime();
+		if (now - lastTouchEnd <= 300) { event.preventDefault(); }
+		lastTouchEnd = now;
+	}, false);
+	document.addEventListener('gesturestart', function(event) { event.preventDefault(); });
+        document.addEventListener('dblclick', function (event) { event.preventDefault(); })
+}
+</script>
